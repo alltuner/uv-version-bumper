@@ -70,15 +70,15 @@ If you need changelog generation, release notes, or CI/CD integration, look at:
 
 uv [is tracking native task support](https://github.com/astral-sh/uv/issues/5903). Once that lands, this justfile becomes redundant; this README will be updated with the migration path.
 
+## License
+
+[MIT](LICENSE)
+
 ## Support the project
 
 uv-version-bumper is an open source project built by [David Poblador i Garcia](https://davidpoblador.com/) through [All Tuner Labs](https://www.alltuner.com/).
 
 If this project was useful to you, [consider supporting its development](https://alltuner.com/sponsor).
-
-## License
-
-[MIT](LICENSE)
 
 ---
 
