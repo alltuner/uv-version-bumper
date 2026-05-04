@@ -1,4 +1,6 @@
-<h1 align="center">uv-version-bumper</h1>
+<p align="center">
+  <img src="https://brand.alltuner.com/logos/uv-version-bumper/horizontal.png" alt="uv-version-bumper" width="500">
+</p>
 
 <p align="center">
   <strong>Version bumping and git tagging for <a href="https://github.com/astral-sh/uv">uv</a>-managed Python projects.</strong><br>
