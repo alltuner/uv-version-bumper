@@ -1,76 +1,96 @@
-# uv-version-bumper
+<h1 align="center">uv-version-bumper</h1>
 
-A simple tool to automate Python project version bumping and git tagging using [uv](https://github.com/astral-sh/uv).
+<p align="center">
+  <strong>Version bumping and git tagging for <a href="https://github.com/astral-sh/uv">uv</a>-managed Python projects.</strong><br>
+  A single justfile. Drop it in, run <code>just bump-patch</code>.
+</p>
 
-## Overview
+<p align="center">
+  <a href="https://github.com/sponsors/alltuner">Sponsor</a>
+</p>
 
-This tool provides a streamlined workflow for:
+<p align="center">
+  <img src="https://img.shields.io/github/license/alltuner/uv-version-bumper?color=5B2333" alt="License">
+  <img src="https://img.shields.io/github/stars/alltuner/uv-version-bumper?color=5B2333" alt="Stars">
+</p>
 
-1. Checking if your git repository is clean
-2. Bumping your project version (major, minor, or patch)
-3. Updating your dependency lock file
-4. Committing changes
-5. Creating git tags automatically
+---
 
-## Prerequisites
+## Get Started
 
-- [uv](https://github.com/astral-sh/uv) - The blazingly fast Python package installer and resolver (minimum version [`0.7.0`](https://github.com/astral-sh/uv/releases/tag/0.7.0))
-- [Git](https://git-scm.com/)
-- A relatively modern Python project with a `pyproject.toml` file that uses its `version` configuration option to store the project version
-
-## Installation
-
-1. Copy the `justfile` from this repository into your Python project root
-2. No need to install `just` separately! Thanks to the magic of `uv`, you can run it directly with:
+1. Copy the [`justfile`](justfile) from this repository into your Python project root.
+2. Run any of the bump commands directly via `uvx`:
 
    ```bash
-   uvx --from just-bin just
+   uvx --from just-bin just bump-patch
    ```
+
+No need to install `just` globally — `uvx` handles the binary on the fly.
+
+---
+
+## What is uv-version-bumper?
+
+A small justfile that automates the boring half of releasing a Python project: bumping the version in `pyproject.toml`, refreshing the lockfile, committing, and tagging. It's intentionally minimal: no changelog generation, no release notes, no CI integration. If you need any of those, see [Other tools](#other-tools).
+
+### Workflow
+
+1. Verify the git repository is clean (no uncommitted changes).
+2. Record the current version.
+3. Bump the version in `pyproject.toml`.
+4. Run `uv sync` to refresh the lockfile.
+5. Commit the change and the lockfile in a single commit.
+6. Create an annotated git tag.
 
 ## Usage
 
 ```bash
-# Run commands using uv to execute just
-uvx --from just-bin just bump-patch   # Bump patch version (0.1.0 -> 0.1.1)
-uvx --from just-bin just bump-minor   # Bump minor version (0.1.1 -> 0.2.0)
-uvx --from just-bin just bump-major   # Bump major version (0.2.0 -> 1.0.0)
-uvx --from just-bin just version      # Check current version
-uvx --from just-bin just push-all     # Push commit and tag to remote
+uvx --from just-bin just bump-patch   # 0.1.0 -> 0.1.1
+uvx --from just-bin just bump-minor   # 0.1.1 -> 0.2.0
+uvx --from just-bin just bump-major   # 0.2.0 -> 1.0.0
+uvx --from just-bin just version      # Print the current version
+uvx --from just-bin just push-all     # Push the bump commit and tag
 ```
 
-## How It Works
+## Requirements
 
-The workflow:
+- [uv](https://github.com/astral-sh/uv) ≥ [`0.7.0`](https://github.com/astral-sh/uv/releases/tag/0.7.0).
+- Git.
+- A `pyproject.toml` that uses the `[project] version` field.
 
-1. Verifies your git repository is clean (no uncommitted changes)
-2. Records your current version
-3. Bumps the version in pyproject.toml
-4. Runs `uv sync` to update the lock file
-5. Commits all changes in a single commit
-6. Creates an annotated git tag
+## Other tools
 
-## Note on the Future
+If you need changelog generation, release notes, or CI/CD integration, look at:
 
-This tool exists to bridge a gap until uv implements its own task management system. The incredible team behind uv [is working on a comprehensive task manager](https://github.com/astral-sh/uv/issues/5903) - when that's released, this justfile will no longer be needed, and we'll all benefit from uv's superior performance and integrated workflow. Thanks to uv's `uvx` command, you don't even need to install `just` separately - another example of how uv is streamlining Python developer workflows!
+- [python-semantic-release](https://github.com/python-semantic-release/python-semantic-release)
+- [bump2version](https://github.com/c4urself/bump2version)
+- [release-it](https://github.com/release-it/release-it)
 
-## Additional Notes
+## Future
 
-### Simplicity by Design
+uv [is tracking native task support](https://github.com/astral-sh/uv/issues/5903). Once that lands, this justfile becomes redundant; this README will be updated with the migration path.
 
-This tool is intentionally dead simple, focusing only on version bumping and git tagging. Users needing more advanced release management with features like changelog generation, release notes, or complex CI/CD integration should consider other existing tools such as:
+## Support the project
 
-- [Python-Semantic-Release](https://github.com/python-semantic-release/python-semantic-release)
-- [Bump2Version](https://github.com/c4urself/bump2version)
-- [Release-It](https://github.com/release-it/release-it)
+uv-version-bumper is an open source project built by [David Poblador i Garcia](https://davidpoblador.com/) through [All Tuner Labs](https://www.alltuner.com/).
 
-### Future uv Task Management
+If this saved you a tag-and-push cycle, consider supporting its development.
 
-When uv's task management system is implemented, this project will be updated with instructions on how to migrate from the justfile approach to native uv tasks. Stay tuned for updates!
+❤️ **Sponsor development**
+https://github.com/sponsors/alltuner
+
+☕ **One-time support**
+https://buymeacoffee.com/alltuner
+
+Your support helps fund the continued development of uv-version-bumper and other open source developer tools such as [Factory Floor](https://github.com/alltuner/factoryfloor).
 
 ## License
 
-MIT
+[MIT](LICENSE)
 
-## Contributing
+---
 
-Contributions welcome! Please feel free to submit a Pull Request.
+<p align="center">
+  Built by <a href="https://davidpoblador.com">David Poblador i Garcia</a> with the support of <a href="https://alltuner.com">All Tuner Labs</a>.<br>
+  Made with ❤️ in Poblenou, Barcelona.
+</p>
